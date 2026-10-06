@@ -1,0 +1,7 @@
+Sonidos CC0 (dominio público). Gracias a sus autores:
+- Kenney, "RPG Audio" e "Interface Sounds" — https://kenney.nl  (hoja*, abrir, sello, clic, cruje, paso*, raspado)
+- Ylmir, "Rain (loopable)" — https://opengameart.org/content/rain-loopable  (lluvia)
+- AntumDeluge, "Ticking Clock" — https://opengameart.org/node/16323  (reloj)
+- SketchMan3, "Wind whoosh loop" — https://opengameart.org/content/wind-whoosh-loop  (viento)
+- transitking / qubodup, "Water waves" — https://opengameart.org/content/water-waves  (ola1, ola2)
+- neonarkade, "1-UP Nightclub" — https://opengameart.org/node/24440  (club)

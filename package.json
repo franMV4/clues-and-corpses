@@ -1,0 +1,21 @@
+{
+  "name": "clues-and-corpses",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5550",
+    "build": "node tools/check-cases.mjs && node tools/playthrough.ts && tsc --noEmit && vite build",
+    "check-cases": "node tools/check-cases.mjs && node tools/playthrough.ts",
+    "preview": "vite preview --port 5551"
+  },
+  "dependencies": {
+    "postprocessing": "^6.39.5",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3"
+  }
+}

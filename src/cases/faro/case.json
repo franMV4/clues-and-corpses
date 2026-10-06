@@ -1,0 +1,185 @@
+{
+  "id": "faro",
+  "num": "02",
+  "title": "La luz de Punta Negra",
+  "place": "Costa da Morte",
+  "date": "12 de diciembre de 1957",
+  "difficulty": 2,
+  "minutes": 45,
+  "classification": "CLASE III · RESERVADO",
+  "tagline": "Un temporal, un islote incomunicado y media hora sin luz.",
+  "victim": { "name": "Anselmo Rial", "age": 58, "desc": "Farero. Hallado al pie de la escalera de caracol, con la sien rota." },
+  "briefing": [
+    "Islote de Punta Negra, Costa da Morte. Un temporal del noroeste ha dejado el faro incomunicado desde la tarde del miércoles.",
+    "A las 6:30 del jueves, Rosalía Pazos encuentra a su marido, el farero Anselmo Rial, muerto al pie de la escalera de caracol. Esa misma madrugada el faro estuvo apagado media hora y el pesquero Virxe do Mar estuvo a punto de estrellarse contra los bajos.",
+    "La Guardia Civil de Camariñas lo dio por una caída. Pero los faros no se apagan solos."
+  ],
+  "start": "muelle",
+  "nodes": [
+    { "id": "muelle", "label": "El muelle", "area": "exterior", "pos": [3.2, 1.7, 30], "look": [0.5, 3.2, 12], "marker": [4.5, 0.6, 26], "links": ["cala", "casa"], "exits": { "casa": [8, 1.2, 5.4] } },
+    { "id": "cala", "label": "La cala de la Ensenada", "area": "exterior", "pos": [-12.5, 1.4, 15], "look": [-19, -0.8, 6.5], "marker": [-9, 0.6, 19], "links": ["muelle"] },
+    { "id": "casa", "label": "Cocina de la casa del farero", "area": "casa", "pos": [60, 1.6, -0.4], "look": [60.3, 1.0, -5], "marker": [8, 1.2, 5.4], "links": ["muelle", "medico", "benigno", "escalera"], "exits": { "muelle": [60, 1.2, 0.2], "medico": [57.15, 1.2, -3.2], "benigno": [62.85, 1.2, -3.2], "escalera": [61.6, 1.2, -5.85] } },
+    { "id": "medico", "label": "Cuarto de invitados (el médico)", "area": "medico", "pos": [80, 1.55, 1.3], "look": [80, 0.75, -1.6], "marker": [57.15, 1.2, -3.2], "links": ["casa"], "exits": { "casa": [81.8, 1.1, 1.95] } },
+    { "id": "benigno", "label": "Cuarto de Benigno", "area": "benigno", "pos": [100, 1.55, 1.3], "look": [100.2, 0.7, -1.6], "marker": [62.85, 1.2, -3.2], "links": ["casa"], "exits": { "casa": [98.2, 1.1, 1.95] } },
+    { "id": "escalera", "label": "Pie de la escalera de la torre", "area": "torre", "pos": [-58.5, 1.6, 1.4], "look": [-61.0, 0.35, 0.55], "marker": [61.6, 1.2, -5.85], "links": ["casa", "linterna"], "exits": { "casa": [-58.2, 1.1, 2.1], "linterna": [-60.6, 3.6, -1.6] } },
+    { "id": "linterna", "label": "Sala de la linterna", "area": "linterna", "pos": [-88.3, 21.6, 0.75], "look": [-89.0, 20.55, -1.45], "marker": [-60.6, 3.6, -1.6], "links": ["escalera"], "exits": { "escalera": [-91.1, 20.25, -0.9] } }
+  ],
+  "clues": [
+    { "id": "registro", "name": "Libro de registro del faro", "kind": "documento", "node": "linterna",
+      "desc": "El libro donde el farero anota cada pocas horas el viento y el estado de la lámpara.",
+      "doc": { "title": "Libro de registro — Faro de Punta Negra", "font": "courier", "text": "11-XII-57\n22:00 · NO fuerza 7 · Lámpara OK · A.R.\n00:00 · NO fuerza 8 · Lámpara OK · A.R.\n01:30 · NO fuerza 9 · Lámpara OK · A.R.\n\n12-XII-57\n02:45 · Lámpara apagada al despertar. Encendida. · B.S.\n           (letra temblorosa, la tinta corrida)" } },
+    { "id": "valvula", "name": "Depósito de parafina de la lámpara", "kind": "objeto", "node": "linterna",
+      "desc": "El depósito de latón que alimenta la lámpara, con su llave de paso.",
+      "actions": [{ "type": "lupa", "label": "Mirar el nivel y la llave", "reveals": "El depósito está a la mitad. La llave de paso está cerrada a mano: el faro no se apagó por falta de combustible.", "unlocks": "valvula_cerrada" }] },
+    { "id": "valvula_cerrada", "name": "La llave de paso, cerrada a mano", "kind": "hallazgo", "thumb": "valvula",
+      "desc": "Con medio depósito de parafina, la lámpara solo pudo apagarse cerrando la llave. Alguien la apagó a propósito." },
+    { "id": "telegrama", "name": "Telegrama del Virxe do Mar", "kind": "documento", "node": "casa",
+      "desc": "Llegó por radio a las 3:05, cuando el temporal amainó un poco.",
+      "doc": { "title": "Telegrama · Radio costera de Finisterre", "font": "courier", "text": "PESQUERO VIRXE DO MAR A FARO PUNTA NEGRA STOP\nPERDIMOS SU LUZ A LAS 0210 STOP\nCASI EMBARRANCAMOS EN LOS BAJOS DE LA ENSENADA STOP\nLUZ VUELVE 0240 STOP\nINFORMAREMOS A COMANDANCIA STOP\n\nPATRÓN MANUEL LEIS" } },
+    { "id": "aguardiente", "name": "Botella de aguardiente y vaso", "kind": "objeto", "node": "benigno",
+      "desc": "Sobre la mesita de Benigno. La botella está casi llena; el vaso, vacío.",
+      "actions": [{ "type": "lupa", "label": "Mirar el fondo del vaso", "reveals": "En el fondo del vaso queda un poso blanco que no llegó a disolverse: un barbitúrico molido.", "unlocks": "poso_veronal" }] },
+    { "id": "poso_veronal", "name": "Poso de somnífero en el vaso", "kind": "hallazgo", "thumb": "aguardiente",
+      "desc": "Alguien echó un somnífero en polvo en la copa de Benigno. No se durmió: lo durmieron." },
+    { "id": "maletin", "name": "Maletín del médico", "kind": "objeto", "node": "medico",
+      "desc": "Un maletín de cuero negro con las iniciales R.C.",
+      "actions": [{ "type": "abrir", "label": "Abrir el maletín", "reveals": "Dentro hay instrumental y un estuche de tubos de Veronal. Según la lista del propio médico debería haber doce; quedan diez.", "unlocks": "falta_veronal" }] },
+    { "id": "falta_veronal", "name": "Faltan dos tubos de Veronal", "kind": "documento", "thumb": "maletin",
+      "desc": "La lista de existencias del médico no cuadra con lo que hay en el estuche.",
+      "doc": { "title": "Existencias — Dr. R. Castro, Camariñas", "font": "courier", "text": "Revisado el 10-XII-57\n\nMorfina, ampollas ........... 6\nAceite alcanforado ........... 4\nVeronal (barbital) 0,5 g ..... 12 tubos\nTintura de yodo ............... 1\n\n(En el estuche quedan 10 tubos de Veronal.)" } },
+    { "id": "silueta", "name": "Lugar donde cayó Anselmo", "kind": "objeto", "node": "escalera",
+      "desc": "La silueta de tiza al pie de la escalera de caracol, con una mancha oscura junto a la cabeza.",
+      "actions": [{ "type": "comparar", "label": "Comparar la herida con los peldaños", "reveals": "Según el parte, la herida de la sien es redonda, de unos tres centímetros. El canto de los peldaños es recto y afilado: una caída no deja esa marca.", "unlocks": "herida_redonda" }] },
+    { "id": "herida_redonda", "name": "Una herida redonda", "kind": "hallazgo", "thumb": "silueta",
+      "desc": "La herida no la hizo un peldaño. Le golpearon con algo redondo y duro." },
+    { "id": "baston", "name": "Bastón del médico", "kind": "objeto", "node": "medico",
+      "desc": "Bastón de ébano con empuñadura de plata, apoyado junto a la puerta.",
+      "actions": [
+        { "type": "lupa", "label": "Mirar la empuñadura", "reveals": "La plata de la empuñadura tiene una abolladura reciente, redonda, del tamaño de una moneda grande." },
+        { "type": "uv", "label": "Iluminar con luz ultravioleta", "reveals": "Bajo la luz violeta, el grabado de la empuñadura brilla: restos de sangre que alguien limpió con prisa.", "unlocks": "sangre_baston" }
+      ] },
+    { "id": "sangre_baston", "name": "Sangre en la empuñadura", "kind": "hallazgo", "thumb": "baston",
+      "desc": "La empuñadura de plata del bastón tiene sangre en el grabado y una abolladura redonda." },
+    { "id": "boton", "name": "Botón en la mano del farero", "kind": "objeto", "node": "escalera",
+      "desc": "Lo tenía apretado en el puño. La policía lo dejó en una bandeja junto a la silueta.",
+      "actions": [{ "type": "lupa", "label": "Examinar el botón", "reveals": "Botón de asta, de chaqueta buena, con un hilo marrón todavía enganchado." }] },
+    { "id": "chaqueta", "name": "Chaqueta del médico", "kind": "objeto", "node": "medico",
+      "desc": "Chaqueta de paño marrón colgada del respaldo de la silla.",
+      "actions": [{ "type": "lupa", "label": "Mirar la botonadura", "reveals": "Le falta el tercer botón; queda el hilo marrón arrancado. Los demás son de asta, iguales al de la escalera.", "unlocks": "falta_boton" }] },
+    { "id": "falta_boton", "name": "A la chaqueta le falta un botón", "kind": "hallazgo", "thumb": "chaqueta",
+      "desc": "El botón que Anselmo tenía en la mano es de la chaqueta del médico." },
+    { "id": "huellas", "name": "Huellas en los peldaños", "kind": "objeto", "node": "escalera",
+      "desc": "Pisadas de barro secándose en los primeros peldaños.",
+      "actions": [{ "type": "lupa", "label": "Examinar las pisadas", "reveals": "Suela fina de cuero, sin tacos, con arena negra de la cala. No son de botas de goma.", "unlocks": "huella_cuero" }] },
+    { "id": "huella_cuero", "name": "Pisadas de suela de cuero", "kind": "hallazgo", "thumb": "huellas",
+      "desc": "Quien subió por la escalera llevaba zapatos de ciudad, no botas de faena." },
+    { "id": "zapatos", "name": "Zapatos del médico", "kind": "objeto", "node": "medico",
+      "desc": "Zapatos de ciudad, de cuero fino, debajo de la cama. Todavía húmedos.",
+      "actions": [{ "type": "girar", "label": "Mirar la suela", "reveals": "En la suela queda arena negra y barro, el mismo de la cala y de la escalera." }] },
+    { "id": "diario", "name": "Diario de Anselmo", "kind": "objeto", "node": "casa",
+      "desc": "Un cuaderno de tapas de hule en el vasar. Falta la última hoja escrita: la arrancaron.",
+      "actions": [{ "type": "frotar", "label": "Frotar la hoja siguiente con un lápiz", "rub": "R.C. volvió a ofrecerme dinero por apagar la luz los jueves. Le dije que no. El lunes bajo a la Guardia Civil de Camariñas.", "reveals": "Con el grafito aparece la letra de Anselmo: «R.C. volvió a ofrecerme dinero por apagar la luz los jueves. Le dije que no. El lunes bajo a la Guardia Civil de Camariñas.»", "unlocks": "diario_frotado" }] },
+    { "id": "diario_frotado", "name": "La hoja arrancada del diario", "kind": "documento", "thumb": "diario",
+      "desc": "Lo que escribió Anselmo en la hoja que alguien arrancó.",
+      "doc": { "title": "Diario de A. Rial (calco a lápiz)", "font": "mano", "text": "R.C. volvió a ofrecerme dinero por apagar la luz los jueves.\nLe dije que no.\nEl lunes bajo a la Guardia Civil de Camariñas." } },
+    { "id": "agenda", "name": "Agenda del médico", "kind": "documento", "node": "medico",
+      "desc": "Una agenda de bolsillo sobre la mesilla, abierta por esta semana.",
+      "doc": { "title": "Agenda — semana del 9 al 15 de diciembre", "font": "mano", "text": "Martes: visitas en Muxía\nJueves 12 — 2:00 — Ensenada\n      40 cajas · luz ✕\nViernes: cobrar a L." } },
+    { "id": "linterna_roja", "name": "Farol de cristal rojo", "kind": "objeto", "node": "cala",
+      "desc": "Escondido entre las rocas de la cala, apuntando al mar.",
+      "actions": [{ "type": "girar", "label": "Darle la vuelta", "reveals": "El cristal está pintado de rojo y la mecha es nueva. Desde el mar, una luz roja en la cala solo puede ser una señal." }] },
+    { "id": "cajas_tabaco", "name": "Cajas en la caseta de botes", "kind": "objeto", "node": "muelle",
+      "desc": "Media docena de cajas de madera tapadas con una lona.",
+      "actions": [{ "type": "abrir", "label": "Levantar la lona", "reveals": "Cartones de tabaco rubio americano sin precinto fiscal. En la madera, una marca a fuego: un ancla con una C." }] },
+    { "id": "cajetillas", "name": "Cajetillas en la barca de Lino", "kind": "objeto", "node": "muelle",
+      "desc": "Unas cajetillas sueltas bajo el banco de la barca, de la misma marca que las de las cajas." },
+    { "id": "poliza", "name": "Póliza de seguro de vida", "kind": "documento", "node": "casa",
+      "desc": "En el cajón del aparador, doblada dentro de un sobre.",
+      "doc": { "title": "La Unión y el Fénix Español — Póliza de vida nº 118.402", "font": "imprenta", "text": "Asegurado: Anselmo Rial Vázquez\nTomador: Anselmo Rial Vázquez\nBeneficiaria: Rosalía Pazos Lema\nCapital asegurado: 25.000 pesetas\n\nFirmada en Camariñas el 9 de noviembre de 1957 por el propio asegurado." } },
+    { "id": "testimonio_copa", "name": "Benigno: «Me la sirvió el médico»", "kind": "testimonio",
+      "desc": "«Bebí una copa, sí. Me la sirvió Don Ramiro después de cenar, para el frío. Después no recuerdo nada hasta las dos y media.»" }
+  ],
+  "suspects": [
+    { "id": "ramiro", "name": "Ramiro Castro", "role": "Médico de Camariñas", "age": 55,
+      "bust": { "skin": "#e0b896", "hair": "#3a3a3a", "style": "raya", "beard": "bigote", "glasses": true, "coat": "#4a3526", "collar": "corbata", "age": 55 },
+      "bio": "El médico del pueblo, respetado por todos. Vino al islote por la fiebre de Rosalía y el temporal le impidió volver.",
+      "alibi": "Dice que no salió de su cuarto en toda la noche.",
+      "statements": [
+        { "id": "s1", "text": "No salí de mi cuarto en toda la noche. Con este temporal, ¿adónde iba a ir?", "contradictedBy": "huella_cuero", "reply": "...Está bien. Oí ruido y subí a ver. Encontré al pobre Anselmo ya caído y me asusté: un médico de pueblo no quiere líos con la Guardia Civil.", "unlocks": ["s3"] },
+        { "id": "s2", "text": "Vine por la fiebre de doña Rosalía. Llegué con Lino a media tarde y el temporal nos dejó aquí." },
+        { "id": "s3", "hidden": true, "text": "No tengo nada que ver con contrabandistas. Pregunte en Camariñas quién es Ramiro Castro.", "contradictedBy": "diario_frotado", "reply": "El diario de un farero que veía fantasmas... No pienso decir una palabra más sin mi abogado." },
+        { "id": "s4", "text": "Mi botiquín está completo. Lo reviso yo mismo cada semana.", "contradictedBy": "falta_veronal", "reply": "Habré dejado algún tubo en el pueblo. No llevo la cuenta de cada pastilla." }
+      ] },
+    { "id": "benigno", "name": "Benigno Souto", "role": "Ayudante del farero", "age": 30,
+      "bust": { "skin": "#d9a982", "hair": "#2b1d12", "style": "corto", "coat": "#2c3e50", "collar": "jersey", "age": 30 },
+      "bio": "Lleva dos años en el faro. Esa noche le tocaba la guardia de madrugada.",
+      "alibi": "Dice que estuvo despierto en la guardia hasta que vio la lámpara apagada.",
+      "statements": [
+        { "id": "s1", "text": "No bebí nada en toda la noche. Estuve despierto en la guardia hasta que vi la lámpara apagada.", "contradictedBy": "poso_veronal", "reply": "...Bebí una copa, sí. Me la sirvió Don Ramiro después de cenar, «para el frío». Después no recuerdo nada hasta las dos y media, con la cabeza como un bombo.", "unlocksClue": "testimonio_copa" },
+        { "id": "s2", "text": "Cuando desperté, la lámpara estaba apagada. La encendí y apunté la hora en el registro. Eso es todo lo que sé." }
+      ] },
+    { "id": "rosalia", "name": "Rosalía Pazos", "role": "Esposa del farero", "age": 45,
+      "bust": { "skin": "#e3b99a", "hair": "#1f1712", "style": "mono", "coat": "#3d2b22", "collar": "chal", "earrings": true, "age": 45 },
+      "bio": "Nacida en Camariñas. Lleva veinte años en el islote con Anselmo. Esa noche estaba en cama con fiebre.",
+      "alibi": "En cama con fiebre desde la cena. Encontró el cuerpo a las 6:30.",
+      "statements": [
+        { "id": "s1", "text": "Encontré a mi marido a las seis y media, al pie de la escalera. Yo llevaba toda la noche en cama con fiebre." },
+        { "id": "s2", "text": "Anselmo no tenía enemigos. Era un hombre tranquilo.", "contradictedBy": "diario_frotado", "reply": "Últimamente dormía mal... Hace un mes firmó un seguro de vida él solo. Me dijo: «por si me pasa algo». No quiso explicarme más." }
+      ] },
+    { "id": "lino", "name": "Lino Barreiro", "role": "Marinero", "age": 40,
+      "bust": { "skin": "#c48e66", "hair": "#5a4a3a", "style": "rizado", "beard": "barba", "hat": "gorra", "coat": "#28323a", "collar": "jersey", "age": 40 },
+      "bio": "Trae víveres al faro cada semana en su barca. Esa tarde trajo también al médico.",
+      "alibi": "Dice que durmió en su barca, amarrada al muelle.",
+      "statements": [
+        { "id": "s1", "text": "Yo solo traje los víveres y al médico. Dormí en el barco toda la noche, con el temporal no había otra." },
+        { "id": "s2", "text": "No sé nada de tabaco. Soy un hombre honrado.", "contradictedBy": "cajetillas", "reply": "Unas cajetillas... Me las dan por ayudar a descargar en la Ensenada algunos jueves de noche. Quien paga es un señor del pueblo; nunca le vi la cara. Las cajas llevan un ancla con una C." }
+      ] }
+  ],
+  "deductions": [
+    { "id": "d_apagado", "requires": ["valvula_cerrada", "telegrama", "registro"], "title": "El faro se apagó a propósito", "text": "A la 1:30 la lámpara funcionaba, con parafina de sobra. A las 2:10 se apagó porque alguien cerró la llave." },
+    { "id": "d_drogado", "requires": ["poso_veronal", "falta_veronal", "testimonio_copa"], "title": "Benigno fue drogado por el médico", "text": "El somnífero del vaso salió del maletín de Ramiro, y fue él quien sirvió la copa." },
+    { "id": "d_golpe", "requires": ["herida_redonda", "sangre_baston"], "title": "No fue una caída", "text": "La herida redonda encaja con la empuñadura abollada y ensangrentada del bastón." },
+    { "id": "d_lucha", "requires": ["boton", "falta_boton"], "title": "Hubo un forcejeo con el médico", "text": "Anselmo murió con un botón de la chaqueta de Ramiro en el puño." },
+    { "id": "d_subio", "requires": ["huella_cuero", "zapatos"], "title": "El médico subió a la torre", "text": "Las pisadas de cuero de la escalera son de los zapatos húmedos del médico." },
+    { "id": "d_contrabando", "requires": ["diario_frotado", "agenda", "linterna_roja"], "title": "Apagaban la luz para un desembarco", "text": "Los jueves a las 2:00 la luz debía apagarse y una señal roja guiaba a la lancha hasta la Ensenada. R.C. pagaba por ello." }
+  ],
+  "timeline": {
+    "events": [
+      { "id": "t1", "time": "23:00", "text": "Cena en la casa. El médico sirve una copa de aguardiente a Benigno." },
+      { "id": "t2", "time": "01:30", "text": "Última anotación de Anselmo: «Lámpara OK»." },
+      { "id": "t3", "time": "02:00", "text": "Alguien sube por la escalera de la torre con zapatos de calle." },
+      { "id": "t4", "time": "02:10", "text": "El Virxe do Mar pierde la luz del faro." },
+      { "id": "t5", "time": "02:40", "text": "Benigno despierta y vuelve a encender la lámpara." },
+      { "id": "t6", "time": "06:30", "text": "Rosalía encuentra el cuerpo al pie de la escalera." }
+    ],
+    "deduction": { "title": "Cuarenta minutos sin testigos", "text": "Entre la última anotación y el apagón, Benigno dormía drogado, Rosalía estaba en cama con fiebre y Lino en su barco. Solo el médico estaba despierto en la casa." }
+  },
+  "accusation": {
+    "methods": [
+      { "id": "m1", "text": "Anselmo resbaló en la escalera mojada por el temporal." },
+      { "id": "m2", "text": "Benigno se durmió borracho; Anselmo subió a apagar la lámpara y cayó." },
+      { "id": "m3", "text": "Drogó al ayudante, subió a apagar la lámpara y, al ser sorprendido, golpeó a Anselmo con el bastón y lo empujó escaleras abajo.", "requires": "d_golpe" },
+      { "id": "m4", "text": "Lo empujó desde lo alto de la escalera durante una discusión por el seguro." }
+    ],
+    "motives": [
+      { "id": "mo1", "text": "Cobrar el seguro de vida." },
+      { "id": "mo2", "text": "Anselmo iba a denunciar la red de contrabando a la Guardia Civil.", "requires": "d_contrabando" },
+      { "id": "mo3", "text": "Ocultar que se había dormido durante la guardia." },
+      { "id": "mo4", "text": "Celos: una aventura con Rosalía." }
+    ]
+  },
+  "solution": {
+    "culprit": "ramiro", "method": "m3", "motive": "mo2",
+    "story": [
+      "Don Ramiro Castro, el médico respetable de Camariñas, era quien pagaba los desembarcos de tabaco en la Ensenada. Necesitaba el faro apagado media hora los jueves, y Anselmo Rial se negó a venderle la luz.",
+      "Aprovechó la fiebre de Rosalía para quedarse en el islote. En la cena sirvió a Benigno un aguardiente con Veronal de su propio maletín. A las dos subió a la linterna, cerró la llave de la parafina y fue a poner la señal roja en la cala.",
+      "Anselmo le sorprendió en la escalera. Forcejearon (el botón de asta se quedó en la mano del farero) y Ramiro le golpeó en la sien con la empuñadura de plata del bastón. Después lo dejó al pie de la escalera para que pareciera una caída.",
+      "No contaba con que Anselmo había escrito lo del soborno en su diario, ni con que la pluma deja surcos en la hoja de abajo."
+    ]
+  },
+  "hints": [
+    "El faro no se quedó sin parafina. Sube a la sala de la linterna y mira de cerca la lámpara; luego lee el telegrama de la cocina.",
+    "Benigno no se durmió solo: algo había en su vaso. ¿Quién le sirvió la copa y de dónde salió el somnífero? Abre el maletín del médico.",
+    "El médico subió a apagar la luz para un desembarco de contrabando y Anselmo lo sorprendió. Pasa la luz UV por el bastón y frota con un lápiz la hoja del diario."
+  ]
+}

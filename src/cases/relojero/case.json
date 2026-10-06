@@ -1,0 +1,200 @@
+{
+  "id": "relojero",
+  "num": "01",
+  "title": "El relojero de Clerkenwell",
+  "place": "Londres",
+  "date": "14 de noviembre de 1889",
+  "difficulty": 1,
+  "minutes": 25,
+  "classification": "CLASE II · INICIACIÓN",
+  "tagline": "Un taller cerrado por dentro. Cuarenta relojes en hora. Uno parado.",
+  "victim": { "name": "Ambrose Tull", "age": 61, "desc": "Maestro relojero. Golpe mortal en la cabeza, junto a su escritorio." },
+  "briefing": [
+    "Clerkenwell, 8:10 de la mañana. El aprendiz Silas Reed y el lechero Tom Briggs tiran abajo la puerta del taller de Ambrose Tull, que no ha abierto a su hora.",
+    "Lo encuentran muerto junto a su escritorio, con la cabeza abierta. La puerta tenía el cerrojo echado por dentro y la única ventana tiene barrotes.",
+    "Scotland Yard lo archivó como un robo frustrado. El Archivo Baker no está tan seguro."
+  ],
+  "start": "calle",
+  "nodes": [
+    { "id": "calle", "label": "Calle Amwell, puerta del taller", "area": "calle", "pos": [0.9, 1.62, 6.4], "look": [0, 1.5, 0], "marker": [0, 1.2, 0.3], "links": ["taller"], "exits": { "taller": [0, 1.15, 0.2] } },
+    { "id": "taller", "label": "El taller", "area": "taller", "pos": [0.2, 1.62, -0.9], "look": [0.3, 0.9, -5.5], "marker": [0, 0.9, -1.6], "links": ["calle", "banco", "escritorio", "cocina", "buhardilla"] },
+    { "id": "banco", "label": "Banco de trabajo", "area": "taller", "pos": [-1.5, 1.55, -3.3], "look": [-3.4, 0.9, -4.7], "marker": [-2.5, 0.75, -3.8], "links": ["taller", "escritorio"] },
+    { "id": "escritorio", "label": "Escritorio de Tull", "area": "taller", "pos": [1.1, 1.55, -3.4], "look": [3.0, 0.5, -5.3], "marker": [2.1, 0.75, -4.0], "links": ["taller", "banco"] },
+    { "id": "cocina", "label": "Cocina y despensa", "area": "cocina", "pos": [20, 1.6, -0.6], "look": [20.6, 1.05, -5], "marker": [3.85, 1.3, -1.6], "links": ["taller"], "exits": { "taller": [16.9, 1.3, -1.6] } },
+    { "id": "buhardilla", "label": "Buhardilla del aprendiz", "area": "buhardilla", "pos": [-20, 1.45, -0.6], "look": [-20.2, 0.6, -4.6], "marker": [-3.2, 1.6, -6.7], "links": ["taller"], "exits": { "taller": [-17.7, 0.7, -2.2] } }
+  ],
+  "clues": [
+    { "id": "atestado", "name": "Atestado del agente Dawes", "kind": "documento", "node": "calle",
+      "desc": "Libreta del agente que acudió al aviso. Recoge lo que contó el lechero.",
+      "doc": { "title": "Atestado — Agente H. Dawes, división G", "font": "courier", "text": "14-XI-1889. 8:20.\nAcudo al aviso del lechero T. Briggs en Amwell St. nº 7.\n\nDeclaración de T. Briggs:\n«El chico, Silas, y yo empujamos la puerta hasta que saltó el cerrojo. El chico entró el primero, corriendo, y se echó encima del señor Tull. Estuvo así unos segundos, agachado sobre él. Luego me gritó que fuera a por un agente. Cuando volví con usted, el chico lloraba junto al cuerpo.»\n\nObservo: puerta forzada desde fuera. Ventana con barrotes, intacta. Nada robado a primera vista." } },
+
+    { "id": "cerrojo", "name": "Cerrojo arrancado", "kind": "objeto", "node": "taller",
+      "desc": "El pasador de hierro de la puerta, arrancado del marco con los tornillos.",
+      "actions": [{ "type": "lupa", "label": "Examinar las astillas", "reveals": "Las astillas del marco apuntan hacia dentro: la puerta se forzó desde la calle con el pasador echado. Nadie salió por aquí durante la noche." }] },
+
+    { "id": "informe_forense", "name": "Informe del forense", "kind": "documento", "node": "taller",
+      "desc": "Notas del cirujano de la policía, que examinó el cuerpo a las 8:25.",
+      "doc": { "title": "Dr. P. Llewelyn — Cirujano de la Policía Metropolitana", "font": "courier", "text": "Examen a las 8:25 h.\n\nVarón de unos 60 años. Fractura del cráneo en la región parietal izquierda causada por un objeto contundente y estrecho, de borde dentado.\n\nLa sangre del suelo está TODAVÍA LÍQUIDA y brillante en los bordes del charco. El cuerpo conserva calor en el tronco. No hay rigidez en la mandíbula.\n\nConclusión: la muerte se produjo hace menos de una hora.\n\nObservación: pupilas muy contraídas, como tras una dosis de opiáceo." } },
+
+    { "id": "relojes_pared", "name": "Pared de relojes", "kind": "objeto", "node": "taller",
+      "desc": "Cuarenta relojes de pared, todos en hora al minuto. Tull los ajustaba cada mañana antes de abrir.",
+      "actions": [{ "type": "lupa", "label": "Comprobar la hora", "reveals": "Ni uno se ha parado ni adelantado. Un hombre así nunca llevaría encima un reloj parado." }] },
+
+    { "id": "llave_cuerda", "name": "Llave de cuerda de latón", "kind": "objeto", "node": "banco",
+      "desc": "Llave pesada para dar cuerda al reloj de una torre. Estaba tirada debajo del banco, sospechosamente limpia.",
+      "actions": [{ "type": "lupa", "label": "Mirar el dentado", "reveals": "Entre los dientes del extremo quedan restos pardos: sangre seca. Alguien limpió el resto con prisa.", "unlocks": "sangre_llave" }] },
+    { "id": "sangre_llave", "name": "Sangre en la llave de cuerda", "kind": "hallazgo", "thumb": "llave_cuerda",
+      "desc": "Restos de sangre en el dentado de la llave de cuerda. Encaja con la herida «estrecha y de borde dentado» del informe forense." },
+
+    { "id": "plano_escape", "name": "Plano del escape patentado", "kind": "documento", "node": "banco",
+      "desc": "El plano del escape de áncora libre de Tull, su invento más valioso.",
+      "actions": [{ "type": "lupa", "label": "Mirar la esquina", "reveals": "Falta la esquina inferior derecha, arrancada. Es donde Tull firmaba todos sus planos." }] },
+
+    { "id": "taza", "name": "Taza de té", "kind": "objeto", "node": "escritorio",
+      "desc": "La taza del té de la noche, todavía sobre el escritorio.",
+      "actions": [{ "type": "lupa", "label": "Mirar el fondo", "reveals": "En el fondo queda un poso pardo y espeso que huele amargo, a clavo y a alcohol: láudano.", "unlocks": "poso_laudano" }] },
+    { "id": "poso_laudano", "name": "Poso de láudano en el té", "kind": "hallazgo", "thumb": "taza",
+      "desc": "Alguien echó una dosis fuerte de láudano en el té de la noche. Tull no pudo levantarse a abrir: dormía." },
+
+    { "id": "frasco", "name": "Frasco de láudano", "kind": "objeto", "node": "escritorio",
+      "desc": "Frasco vacío en la papelera, junto al escritorio.",
+      "actions": [{ "type": "girar", "label": "Leer la etiqueta", "reveals": "«Botica Hollis, Exmouth Market. Láudano. Para Mrs. E. Pell. Diez gotas para el reuma.» Está vacío." }] },
+
+    { "id": "reloj_bolsillo", "name": "Reloj de bolsillo de Tull", "kind": "objeto", "node": "escritorio",
+      "desc": "Estaba en el suelo, junto al cuerpo, con el cristal roto. Marca las 23:40.",
+      "actions": [
+        { "type": "abrir", "label": "Abrir la tapa", "reveals": "Las manecillas están clavadas en las 23:40. El cristal está roto, pero la maquinaria está intacta." },
+        { "type": "lupa", "label": "Examinar la corona", "reveals": "La corona está sacada, en la posición de poner en hora. El golpe no paró el reloj: alguien lo detuvo a mano.", "unlocks": "corona" }
+      ] },
+    { "id": "corona", "name": "La corona sacada", "kind": "hallazgo", "thumb": "reloj_bolsillo",
+      "desc": "El reloj de bolsillo no se paró por el golpe: alguien sacó la corona y lo dejó en las 23:40." },
+
+    { "id": "carta_borrador", "name": "Borrador de una carta", "kind": "documento", "node": "escritorio",
+      "desc": "Una hoja con la letra de Tull, a medio escribir, bajo el tintero.",
+      "doc": { "title": "Borrador sin enviar", "font": "mano", "text": "S.:\n\nMañana a primera hora hablaremos de los planos del escape. Sé a quién se los has llevado y sé por cuánto.\n\nTe enseñé el oficio como a un hijo. No me obligues a acudir a Scotland Yard.\n\n— A. T." } },
+
+    { "id": "silueta", "name": "Silueta de tiza", "kind": "objeto", "node": "escritorio",
+      "desc": "La silueta que dibujó la policía donde cayó Tull, con el charco de sangre junto a la cabeza.",
+      "actions": [{ "type": "lupa", "label": "Mirar el charco", "reveals": "La sangre se extendió por debajo del cuerpo hacia la puerta. Cayó de espaldas al escritorio, mirando a quien entraba." }] },
+
+    { "id": "alacena", "name": "Alacena de Mrs. Pell", "kind": "objeto", "node": "cocina",
+      "desc": "El armarito de las medicinas del ama de llaves: sales, aceite de ricino, una botella de árnica.",
+      "actions": [{ "type": "lupa", "label": "Examinar el estante", "reveals": "En el polvo del estante queda el círculo limpio de un frasco que ya no está.", "unlocks": "hueco_alacena" }] },
+    { "id": "hueco_alacena", "name": "Falta el frasco de láudano", "kind": "hallazgo", "thumb": "alacena",
+      "desc": "El láudano de la papelera salió de la alacena de Mrs. Pell. Alguien lo sacó de la cocina." },
+
+    { "id": "bolso_margaret", "name": "Bolso de Margaret Tull", "kind": "objeto", "node": "cocina",
+      "desc": "Un bolso de terciopelo gastado, olvidado sobre la mesa de la cocina.",
+      "actions": [{ "type": "abrir", "label": "Abrir el bolso", "reveals": "Dentro hay un fajo de papeletas de la casa de empeños Attenborough.", "unlocks": "papeletas_empeno" }] },
+    { "id": "papeletas_empeno", "name": "Papeletas de empeño", "kind": "documento", "thumb": "bolso_margaret",
+      "desc": "Margaret ha empeñado joyas por valor de 60 libras en tres meses.",
+      "doc": { "title": "Attenborough & Co. — Prestamistas", "font": "imprenta", "text": "Nº 4471 — Broche de camafeo — 12 £\nNº 4502 — Pendientes de granate — 9 £\nNº 4519 — Medallón de oro con retrato — 22 £\nNº 4560 — Pulsera de plata — 17 £\n\nA nombre de: Miss M. Tull, Islington.\nPlazo de rescate: 30 días." } },
+
+    { "id": "lata", "name": "Lata de galletas bajo la cama", "kind": "objeto", "node": "buhardilla",
+      "desc": "Una lata de galletas Huntley & Palmers escondida bajo la cama, detrás de unas botas.",
+      "actions": [
+        { "type": "abrir", "label": "Abrir la lata", "reveals": "Hay monedas de oro y un recibo doblado.", "unlocks": "recibo_crane" },
+        { "type": "girar", "label": "Vaciar la lata", "reveals": "En el fondo, debajo del papel, hay un trozo de plano con la firma «A. Tull».", "unlocks": "esquina_firma" }
+      ] },
+    { "id": "recibo_crane", "name": "Recibo de J. Crane & Co.", "kind": "documento", "thumb": "lata",
+      "desc": "Un recibo de la relojería rival a nombre de Silas.",
+      "doc": { "title": "J. Crane & Co. — Relojeros, Strand", "font": "imprenta", "text": "Pagado a Mr. S. Reed la suma de\nCUARENTA SOBERANOS (40 £)\npor «trabajos de delineación».\n\nLondres, 2 de noviembre de 1889.\n\nFdo.: J. Crane" } },
+    { "id": "esquina_firma", "name": "Esquina firmada del plano", "kind": "hallazgo", "thumb": "lata",
+      "desc": "La esquina que falta del plano del escape, con la firma de Tull. La guardaba Silas." },
+
+    { "id": "delantal", "name": "Delantal de cuero de Silas", "kind": "objeto", "node": "buhardilla",
+      "desc": "El delantal de trabajo del aprendiz, colgado de un clavo.",
+      "actions": [{ "type": "abrir", "label": "Mirar en el bolsillo", "reveals": "Hay un trapo hecho una bola, con manchas pardas todavía húmedas.", "unlocks": "trapo" }] },
+    { "id": "trapo", "name": "Trapo manchado", "kind": "hallazgo", "thumb": "delantal",
+      "desc": "El trapo del bolsillo del delantal de Silas. Las manchas son de sangre, y de esta misma mañana." },
+
+    { "id": "cuenta_taberna", "name": "Cuenta de The Eagle", "kind": "documento", "node": "buhardilla",
+      "desc": "La cuenta de anoche, sobre la mesita de Silas.",
+      "doc": { "title": "The Eagle — City Road", "font": "imprenta", "text": "Mr. S. Reed\n\n3 pintas de porter ....... 9 d.\n1 pastel de carne ........ 6 d.\n\nEntrada 21:45 — Cierre de cuenta 23:55\n\nRecibí.  W. Hobbs, tabernero." } },
+
+    { "id": "testimonio_pell", "name": "Declaración de Mrs. Pell", "kind": "testimonio",
+      "desc": "«Ayer Silas me pidió unas gotas de láudano para las muelas. Le dejé el frasco y no me lo devolvió.»" }
+  ],
+  "suspects": [
+    { "id": "silas", "name": "Silas Reed", "role": "Aprendiz de Tull", "age": 19,
+      "bust": { "skin": "#e8c4a8", "hair": "#6b4a2b", "style": "rizado", "hat": "gorra", "coat": "#4a4036", "collar": "cuello", "age": 19 },
+      "bio": "Huérfano. Tull le recogió a los doce años y le enseñó el oficio. Duerme en la buhardilla del taller.",
+      "alibi": "Pasó la noche en la taberna The Eagle, de 21:45 a 23:55.",
+      "statements": [
+        { "id": "s1", "text": "Anoche estuve en The Eagle hasta medianoche, pregunte al tabernero. El maestro ya estaría muerto entonces: su reloj se paró a las 23:40." },
+        { "id": "s2", "text": "Cuando tiramos la puerta, el maestro ya estaba frío. No le toqué. Mandé enseguida al lechero a por un agente.", "contradictedBy": "atestado", "reply": "Bueno... me arrodillé a su lado, ¿qué iba a hacer? Era como mi padre. No sé ni lo que hice.", "unlocks": ["s3"] },
+        { "id": "s3", "hidden": true, "text": "Le subí el té a las diez, como cada noche. El té lo prepara Mrs. Pell; yo solo lo subo.", "contradictedBy": "testimonio_pell", "reply": "Me dolía una muela, eso es todo. No sé cómo acabó el frasco en la papelera del taller." },
+        { "id": "s4", "text": "Nunca he tocado los planos del maestro. Yo no sé dibujar un escape.", "contradictedBy": "esquina_firma", "reply": "...El señor Crane me pagó por copiarlos. Cuarenta soberanos. ¡Pero yo no le hice nada al maestro, lo juro!" }
+      ] },
+    { "id": "margaret", "name": "Margaret Tull", "role": "Sobrina y heredera", "age": 28,
+      "bust": { "skin": "#efd2bd", "hair": "#2a1c14", "style": "mono", "coat": "#3b2b3f", "collar": "chal", "earrings": true, "age": 28 },
+      "bio": "Única familia de Tull. Vive sola en Islington. Hereda el taller y los ahorros de su tío.",
+      "alibi": "Dice que pasó la noche sola en casa. Nadie puede confirmarlo.",
+      "statements": [
+        { "id": "s1", "text": "Anoche estuve en casa, sola. Llegué aquí a las nueve de la mañana, cuando ya estaba la policía." },
+        { "id": "s2", "text": "Mi tío y yo nos llevábamos bien. No necesito su dinero.", "contradictedBy": "papeletas_empeno", "reply": "Está bien: debo dinero. He empeñado las joyas de mi madre. Pero no iba a matar a mi tío por una herencia que me llegaría igualmente." }
+      ] },
+    { "id": "pell", "name": "Edith Pell", "role": "Ama de llaves", "age": 62,
+      "bust": { "skin": "#e6c3a6", "hair": "#bdb7ae", "style": "mono", "hat": "cofia", "coat": "#2b2b2b", "collar": "cuello", "glasses": true, "age": 62 },
+      "bio": "Lleva veinte años en la casa. No duerme en el taller: llega a las siete y se va a las diez de la noche.",
+      "alibi": "Se fue a su casa a las diez de la noche, como siempre.",
+      "statements": [
+        { "id": "s1", "text": "Preparé el té del señor a las nueve y media, como cada noche. Silas se lo subió. Luego me fui a casa." },
+        { "id": "s2", "text": "Mi láudano está en mi alacena. No sé qué hace un frasco en la papelera del taller.", "contradictedBy": "hueco_alacena", "reply": "¡Ay, Dios! Ahora que lo dice... ayer Silas me pidió unas gotas para las muelas. Le dejé el frasco y no me lo devolvió.", "unlocksClue": "testimonio_pell" }
+      ] },
+    { "id": "crane", "name": "Julius Crane", "role": "Relojero rival", "age": 50,
+      "bust": { "skin": "#e2bfa0", "hair": "#444444", "style": "raya", "beard": "patillas", "hat": "chistera", "coat": "#1d1d22", "collar": "pajarita", "age": 50 },
+      "bio": "Dueño de una relojería de lujo en el Strand. Hace meses que quiere comprar el taller de Tull.",
+      "alibi": "Discutió con Tull a las 21:00. Dice que a las diez estaba en su casa con su mujer.",
+      "statements": [
+        { "id": "s1", "text": "Vine a las nueve a ofrecerle un buen precio por el taller. Discutimos, sí, y me echó a la calle. Eso fue todo." },
+        { "id": "s2", "text": "No sé nada de ningún plano. Mis relojes los diseño yo.", "contradictedBy": "recibo_crane", "reply": "Negocios son negocios. Si el chico quería vender, yo compraba. Pero a las diez estaba en casa, y mi mujer lo jurará ante quien haga falta." }
+      ] }
+  ],
+  "deductions": [
+    { "id": "d_hora", "requires": ["corona", "informe_forense"], "title": "La hora de la muerte se falseó", "text": "El reloj se paró a mano en las 23:40, pero la sangre seguía líquida a las 8:25. Tull no murió por la noche: murió por la mañana." },
+    { "id": "d_droga", "requires": ["poso_laudano", "frasco"], "title": "Tull estaba drogado", "text": "El té de la noche llevaba láudano de sobra. Por eso no abrió por la mañana: no estaba muerto, estaba dormido." },
+    { "id": "d_solo", "requires": ["atestado", "cerrojo"], "title": "El asesino estuvo a solas con él", "text": "La puerta se forzó desde fuera con Tull dentro. Solo quien entró el primero pudo tocarle antes de que llegara nadie más." },
+    { "id": "d_arma", "requires": ["sangre_llave", "trapo"], "title": "El arma y quien la limpió", "text": "La llave de cuerda se limpió con el trapo que apareció en el delantal del aprendiz." },
+    { "id": "d_movil", "requires": ["carta_borrador", "esquina_firma"], "title": "El móvil: los planos", "text": "Tull sabía que alguien vendía sus planos y pensaba denunciarle. La esquina firmada estaba en la lata de Silas." }
+  ],
+  "timeline": {
+    "events": [
+      { "id": "t1", "time": "21:00", "text": "Crane discute con Tull y se marcha." },
+      { "id": "t2", "time": "21:30", "text": "Mrs. Pell prepara el té; Silas se lo sube al maestro." },
+      { "id": "t3", "time": "21:45", "text": "Silas llega a The Eagle." },
+      { "id": "t4", "time": "23:40", "text": "Hora que marca el reloj de bolsillo parado." },
+      { "id": "t5", "time": "08:10", "text": "Silas y el lechero fuerzan la puerta. Silas entra el primero." },
+      { "id": "t6", "time": "08:25", "text": "El forense encuentra la sangre todavía líquida." }
+    ],
+    "deduction": { "title": "Una coartada para la hora equivocada", "text": "Silas salió hacia la taberna con el maestro ya dormido. La coartada de la noche le sirve para las 23:40, pero el crimen se cometió a las 8:10." }
+  },
+  "accusation": {
+    "methods": [
+      { "id": "m1", "text": "Lo golpeó por la noche, tras una discusión, y escapó por la ventana." },
+      { "id": "m2", "text": "Lo drogó con el té de la noche y lo mató por la mañana, al forzar la puerta, en los segundos que estuvo a solas con él.", "requires": "d_solo" },
+      { "id": "m3", "text": "Lo envenenó con láudano; el golpe fue una caída al perder el sentido.", "requires": "d_droga" },
+      { "id": "m4", "text": "Entró de madrugada con una llave falsa y al salir echó el cerrojo con un hilo." }
+    ],
+    "motives": [
+      { "id": "mo1", "text": "Heredar el taller para pagar sus deudas." },
+      { "id": "mo2", "text": "Tull iba a denunciarle por vender los planos del escape.", "requires": "d_movil" },
+      { "id": "mo3", "text": "Vengarse de un despido injusto." },
+      { "id": "mo4", "text": "Quedarse con el taller después de que Tull rechazara su oferta." }
+    ]
+  },
+  "solution": {
+    "culprit": "silas", "method": "m2", "motive": "mo2",
+    "story": [
+      "Silas Reed llevaba meses copiando los planos del escape de áncora libre y vendiéndoselos a Julius Crane. Tull lo descubrió y le dejó escrita una nota: a la mañana siguiente hablarían, y después, Scotland Yard.",
+      "Esa noche Silas le subió el té con el láudano que había pedido a Mrs. Pell «para las muelas». Cuando el maestro se durmió, sacó la corona de su reloj de bolsillo, lo dejó en las 23:40 y se fue a The Eagle, donde le vería todo el mundo.",
+      "Por la mañana fingió preocupación, buscó un testigo y forzó la puerta con el lechero. Entró corriendo el primero y, en los segundos que estuvo agachado sobre Tull, todavía vivo, le golpeó con la llave de cuerda. La limpió con un trapo y la tiró debajo del banco.",
+      "El cerrojo echado por dentro no era un misterio: cuando el asesino entró, la víctima seguía viva."
+    ]
+  },
+  "hints": [
+    "Un relojero no lleva encima un reloj parado. Mira de cerca el reloj de bolsillo y lee el informe del forense.",
+    "Si Tull murió por la mañana, ¿quién pudo estar a solas con él? Lee el atestado del agente, en la calle, y enséñaselo a quien diga que no tocó el cuerpo.",
+    "Silas drogó el té, paró el reloj para tener coartada y mató a Tull al forzar la puerta. En la buhardilla está la prueba de los planos."
+  ]
+}

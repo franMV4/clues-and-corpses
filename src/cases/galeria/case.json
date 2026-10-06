@@ -1,0 +1,194 @@
+{
+  "id": "galeria",
+  "num": "03",
+  "title": "Noche de inauguración",
+  "place": "Madrid",
+  "date": "10 de octubre de 2025",
+  "difficulty": 3,
+  "minutes": 70,
+  "classification": "CLASE V · SECRETO",
+  "tagline": "Cien testigos, un discurso y un autoinyector que no inyectaba nada.",
+  "victim": { "name": "Gonzalo Ibarra", "age": 52, "desc": "Galerista. Muerto por un choque anafiláctico dentro del almacén climatizado." },
+  "briefing": [
+    "Galería Ítaca, barrio de las Letras. Inauguración de «Lo que no ves», la nueva exposición de Teo Marín.",
+    "A las 21:52 salta la alarma del almacén climatizado. Dentro está Gonzalo Ibarra, el dueño, muerto por una reacción alérgica. Era alérgico a los cacahuetes, llevaba su autoinyector de adrenalina y lo usó. No le hizo nada.",
+    "La policía culpó al catering. Pero Gonzalo no probó ni un canapé."
+  ],
+  "start": "sala",
+  "nodes": [
+    { "id": "sala", "label": "Sala principal", "area": "galeria", "pos": [0, 1.65, -0.9], "look": [0, 1.55, -10], "marker": [0, 0.6, -2.4], "links": ["barra", "despacho", "almacen", "seguridad", "aseo"], "exits": { "despacho": [-5.4, 1.2, -11.85], "almacen": [5.0, 1.2, -11.85], "seguridad": [6.9, 1.2, -2.0], "aseo": [-6.9, 1.2, -2.0] } },
+    { "id": "barra", "label": "La barra del catering", "area": "galeria", "pos": [2.6, 1.6, -3.4], "look": [5.4, 0.95, -6.4], "marker": [3.4, 0.6, -4.6], "links": ["sala"] },
+    { "id": "despacho", "label": "Despacho de dirección", "area": "despacho", "pos": [40.2, 1.6, -0.3], "look": [40.3, 0.9, -4.2], "marker": [-5.4, 1.2, -11.85], "links": ["sala"], "exits": { "sala": [40, 1.2, 0.05] } },
+    { "id": "almacen", "label": "Almacén climatizado", "area": "almacen", "pos": [80.4, 1.6, 0.1], "look": [80, 0.5, -3.5], "marker": [5.0, 1.2, -11.85], "links": ["sala"], "exits": { "sala": [80, 1.2, 0.35] } },
+    { "id": "seguridad", "label": "Cuarto de seguridad", "area": "seguridad", "pos": [120, 1.55, 1.0], "look": [120.2, 1.0, -1.9], "marker": [6.9, 1.2, -2.0], "links": ["sala"], "exits": { "sala": [121.6, 1.1, 1.2] } },
+    { "id": "aseo", "label": "Guardarropa y aseo del personal", "area": "aseo", "pos": [160, 1.6, 1.2], "look": [160.4, 0.9, -2.6], "marker": [-6.9, 1.2, -2.0], "links": ["sala"], "exits": { "sala": [158.2, 1.1, 1.25] } }
+  ],
+  "clues": [
+    { "id": "autoinyector", "name": "Autoinyector de Gonzalo", "kind": "objeto", "node": "almacen",
+      "desc": "Estaba junto a su mano, usado. La etiqueta está raspada, como si alguien hubiera querido borrarla.",
+      "actions": [
+        { "type": "girar", "label": "Darle la vuelta", "reveals": "El extremo naranja ha saltado, como si se hubiera disparado. Pero no hay restos de líquido en la ventanilla." },
+        { "type": "lupa", "label": "Leer bajo la etiqueta raspada", "reveals": "Bajo el raspado se lee: «TRAINER · NO CONTIENE MEDICAMENTO · SIN AGUJA». Es un dispositivo de entrenamiento.", "unlocks": "trainer" }
+      ] },
+    { "id": "trainer", "name": "Era un dispositivo de entrenamiento", "kind": "hallazgo", "thumb": "autoinyector",
+      "desc": "El autoinyector que usó Gonzalo no tenía aguja ni adrenalina: es de los que se usan para practicar." },
+    { "id": "contenedor", "name": "Contenedor del aseo del personal", "kind": "objeto", "node": "aseo",
+      "desc": "Un contenedor higiénico de pedal, junto al lavabo.",
+      "actions": [{ "type": "abrir", "label": "Abrir el contenedor", "reveals": "Debajo de unas toallitas hay un autoinyector de adrenalina sin usar, con la receta a nombre de G. Ibarra.", "unlocks": "autoinyector_real" }] },
+    { "id": "autoinyector_real", "name": "El autoinyector auténtico", "kind": "hallazgo", "thumb": "contenedor",
+      "desc": "El autoinyector de verdad de Gonzalo, sin usar, tirado en el aseo del personal." },
+    { "id": "mezcal", "name": "Botella de mezcal de Gonzalo", "kind": "objeto", "node": "despacho",
+      "desc": "Su botella personal, en el aparador del despacho. Nadie más la tocaba.",
+      "actions": [{ "type": "comparar", "label": "Pasar el test de alérgenos", "reveals": "El test de alérgenos da positivo en cacahuete dentro de la botella. En el vaso del catering que tenía en la mano, negativo.", "unlocks": "positivo_mezcal" }] },
+    { "id": "positivo_mezcal", "name": "Cacahuete en la botella", "kind": "hallazgo", "thumb": "mezcal",
+      "desc": "Alguien echó cacahuete molido en la botella de mezcal que solo bebía Gonzalo." },
+    { "id": "canapes", "name": "Plato de la mesa VIP", "kind": "objeto", "node": "barra",
+      "desc": "El plato reservado para Gonzalo. Los canapés siguen intactos, sin un mordisco." },
+    { "id": "etiquetas", "name": "Carta de alérgenos del catering", "kind": "documento", "node": "barra",
+      "desc": "Las tarjetas que acompañaban a cada bandeja.",
+      "doc": { "title": "Catering Ferrer — Alérgenos", "font": "imprenta", "text": "Mini brioche de rabo de toro ........ gluten, huevo\nTartar de atún ...................... pescado, sésamo\nBrocheta de pollo satay ............. CACAHUETE (solo mesa del fondo)\nCroqueta de boletus ................. gluten, leche\n\nMesa VIP: sin frutos secos." } },
+    { "id": "nota_camarero", "name": "Declaración del camarero", "kind": "documento", "node": "barra",
+      "desc": "Notas del subinspector en una carpeta, olvidadas sobre la barra.",
+      "doc": { "title": "Notas — Subinspector Ortega", "font": "courier", "text": "Iván Soto, camarero. Sirvió la zona VIP toda la noche.\n\n«El señor Ibarra no probó nada; nunca come en las inauguraciones. Solo bebía su mezcal, que tenía en el despacho. Le vi entrar a servirse a eso de las diez menos veinte. Al rato bajó al almacén con el coleccionista.»" } },
+    { "id": "registro_tarjetas", "name": "Registro de tarjetas de acceso", "kind": "documento", "node": "seguridad",
+      "desc": "La pantalla del sistema de acceso, con cada puerta abierta esta noche.",
+      "doc": { "title": "Sistema de acceso — Galería Ítaca", "font": "courier", "text": "21:04:12  DESPACHO DIRECCIÓN   G. IBARRA\n21:13:40  DESPACHO DIRECCIÓN   I. SALVAT\n21:30:05  ALMACÉN             B. VIDAL\n21:41:18  DESPACHO DIRECCIÓN   G. IBARRA\n21:44:02  ALMACÉN             G. IBARRA (+1)\n21:52:47  ALARMA ALMACÉN      —" } },
+    { "id": "movil_invitado", "name": "Móvil de una invitada", "kind": "objeto", "node": "sala",
+      "desc": "Olvidado en el banco. La dueña lo entregó a la policía con las stories de la noche.",
+      "actions": [{ "type": "abrir", "label": "Ver las stories", "reveals": "En la story de las 21:20, Irene vuelve del pasillo de dirección con la tarjeta colgada al cuello y se coloca junto al atril.", "unlocks": "story_2120" }] },
+    { "id": "story_2120", "name": "Story de las 21:20", "kind": "hallazgo", "thumb": "movil_invitado",
+      "desc": "A las 21:20, Irene vuelve del pasillo de dirección con la tarjeta al cuello, dos minutos antes de su discurso." },
+    { "id": "monitor_cctv", "name": "Grabación de la sala", "kind": "objeto", "node": "seguridad",
+      "desc": "El monitor de la cámara 1, la que apunta al atril.",
+      "actions": [{ "type": "abrir", "label": "Reproducir el discurso", "reveals": "El discurso de Irene empieza a las 21:22 y termina a las 21:31. A las 21:10 Irene no está en la sala.", "unlocks": "hora_discurso" }] },
+    { "id": "hora_discurso", "name": "El discurso empezó a las 21:22", "kind": "hallazgo", "thumb": "monitor_cctv",
+      "desc": "La cámara de la sala sitúa el discurso entre las 21:22 y las 21:31, no a las nueve y diez." },
+    { "id": "log_cctv", "name": "Registro del grabador", "kind": "documento", "node": "seguridad",
+      "desc": "Una tira impresa por el grabador de vídeo.",
+      "doc": { "title": "Grabador — Cámara 4 (pasillo y patio)", "font": "courier", "text": "21:30:12  BORRADO DE SEGMENTO (07 min 28 s)\n          Usuario: bvidal\n21:37:40  Grabación reanudada" } },
+    { "id": "foto_hijo", "name": "Foto en la mesa de Irene", "kind": "objeto", "node": "despacho",
+      "desc": "Un marco con la foto de un niño de unos ocho años.",
+      "actions": [{ "type": "girar", "label": "Mirar detrás del marco", "reveals": "«Nico, 8 años — campamento». En la foto, Nico lleva la pulsera roja de los niños alérgicos." }] },
+    { "id": "circular_colegio", "name": "Circular del colegio", "kind": "documento", "node": "despacho",
+      "desc": "Asoma del cajón de Irene.",
+      "doc": { "title": "Colegio Retiro — Circular a las familias", "font": "imprenta", "text": "Taller de alergias alimentarias (noviembre)\n\nSe entrega a cada familia de alumnos con alergia diagnosticada un DISPOSITIVO DE ENTRENAMIENTO, sin aguja ni medicamento, para practicar en casa el uso del autoinyector.\n\nAlumno: Nicolás Salvat — 3.º B" } },
+    { "id": "ordenador", "name": "Ordenador de Gonzalo", "kind": "objeto", "node": "despacho",
+      "desc": "Bloqueado. Debajo del teclado asoma un pósit amarillo.",
+      "actions": [{ "type": "abrir", "label": "Probar la contraseña del pósit", "reveals": "Entra. En «Enviados» hay un correo a Irene de hace una semana.", "unlocks": "correo_disolucion" }] },
+    { "id": "correo_disolucion", "name": "Correo de Gonzalo a Irene", "kind": "documento", "thumb": "ordenador",
+      "desc": "Enviado una semana antes de la inauguración.",
+      "doc": { "title": "Enviado · 3 oct. 2025, 23:48", "font": "courier", "text": "De: gonzalo@galeriaitaca.es\nPara: irene@galeriaitaca.es\nAsunto: Lunes\n\nIrene: el lunes 13, ante notario, disuelvo la sociedad. Me quedo con la galería y el fondo; tu parte se liquida a valor contable, como dice el pacto.\n\nNo lo hagas más difícil.\nG." } },
+    { "id": "poliza_seguro", "name": "Póliza de persona clave", "kind": "documento", "node": "despacho",
+      "desc": "Una carpeta azul sobre el archivador.",
+      "doc": { "title": "Seguro de persona clave — Póliza 77-31042", "font": "imprenta", "text": "Tomador: Galería Ítaca, S.L.\nPersona asegurada: Gonzalo Ibarra Soler\nBeneficiaria: la socia superviviente, Irene Salvat Roig\nCapital: 1.200.000 €\n\nVigente mientras exista la sociedad." } },
+    { "id": "bolso_irene", "name": "Bolso de Irene", "kind": "objeto", "node": "aseo",
+      "desc": "En la balda del guardarropa, con su resguardo número 14.",
+      "actions": [{ "type": "abrir", "label": "Mirar dentro", "reveals": "Entre el maquillaje y las llaves hay una carta del banco, doblada muchas veces.", "unlocks": "extractos" }] },
+    { "id": "extractos", "name": "Carta del banco", "kind": "documento", "thumb": "bolso_irene",
+      "desc": "Irene debe mucho más de lo que gana.",
+      "doc": { "title": "Banco — Préstamo personal", "font": "imprenta", "text": "Titular: Irene Salvat Roig\nDeuda pendiente: 312.400 €\n\nAviso: tercer recibo impagado. Si no se regulariza antes del 15 de octubre, se iniciará la reclamación judicial." } },
+    { "id": "certificado", "name": "Certificado de un cuadro de Teo Marín", "kind": "documento", "node": "almacen",
+      "desc": "Sobre una caja abierta, junto a un óleo embalado que pone «Vendido — A. Roldán».",
+      "actions": [{ "type": "lupa", "label": "Comparar la firma", "reveals": "La T de la firma del certificado es cerrada; en el cartel de la exposición, Teo siempre la abre. El certificado es falso.", "unlocks": "firma_falsa" }] },
+    { "id": "firma_falsa", "name": "Firma falsificada", "kind": "hallazgo", "thumb": "certificado",
+      "desc": "Gonzalo vendía obras falsas de Teo Marín con certificados que Teo nunca firmó. Una se la vendió a Álex Roldán." },
+    { "id": "inventario", "name": "Inventario del almacén", "kind": "documento", "node": "almacen",
+      "desc": "Una tablilla con el inventario, colgada de la estantería.",
+      "doc": { "title": "Inventario — revisado por la policía a las 21:58", "font": "courier", "text": "T. Marín, «Pájaro nº 1», bronce ............ OK\nT. Marín, «Pájaro nº 2», bronce ............ OK\nT. Marín, «Pájaro nº 3», bronce, 14 cm ...... FALTA\nT. Marín, «Marea», óleo ..................... OK" } },
+    { "id": "silueta", "name": "Donde cayó Gonzalo", "kind": "objeto", "node": "almacen",
+      "desc": "La silueta junto a la puerta del almacén.",
+      "actions": [{ "type": "lupa", "label": "Examinar el suelo", "reveals": "Arañazos junto a la puerta. Gonzalo intentó salir, pero la puerta del almacén se cierra sola y abre con tarjeta." }] }
+  ],
+  "suspects": [
+    { "id": "irene", "name": "Irene Salvat", "role": "Socia de la galería", "age": 46,
+      "bust": { "skin": "#ecc9ae", "hair": "#1b1b1b", "style": "largo", "coat": "#7a1f2b", "collar": "cuello", "earrings": true, "age": 46 },
+      "bio": "Socia de Gonzalo desde hace doce años. Dio el discurso de la noche. Tiene un hijo de ocho años.",
+      "alibi": "Dice que estuvo con la prensa de 21:00 a 21:30 y que después dio el discurso.",
+      "statements": [
+        { "id": "s1", "text": "Estuve con la prensa desde las nueve hasta las nueve y media. No pisé el despacho en toda la noche.", "contradictedBy": "registro_tarjetas", "reply": "Entraría un segundo a por mis notas del discurso, no lo recuerdo. ¿Eso me convierte en una asesina?", "unlocks": ["s3"] },
+        { "id": "s2", "text": "Gonzalo y yo éramos socios desde hace doce años. Estábamos mejor que nunca.", "contradictedBy": "correo_disolucion", "reply": "Gonzalo quería quedarse con todo. Íbamos a negociarlo. Así se hacen las cosas entre socios." },
+        { "id": "s3", "hidden": true, "text": "Mi discurso empezó a las nueve y diez. Me vio todo el mundo.", "contradictedBy": "hora_discurso", "reply": "Las nueve y diez, las nueve y veinte... No estaba mirando el reloj, estaba nerviosa." },
+        { "id": "s4", "text": "No sé nada de alergias. Gonzalo se ocupaba de lo suyo.", "contradictedBy": "circular_colegio", "reply": "Mi hijo es alérgico, sí. ¿Y qué? Eso no tiene nada que ver con esto." }
+      ] },
+    { "id": "teo", "name": "Teo Marín", "role": "Artista de la exposición", "age": 34,
+      "bust": { "skin": "#d7a785", "hair": "#121212", "style": "rizado", "beard": "barba", "glasses": true, "coat": "#1a1a1a", "collar": "jersey", "age": 34 },
+      "bio": "El pintor de moda. «Lo que no ves» es su primera gran exposición en Madrid.",
+      "alibi": "Discutió con Gonzalo a las 20:50. Dice que después estuvo en la barra hasta que sonó la alarma.",
+      "statements": [
+        { "id": "s1", "text": "Sí, discutí con Gonzalo a las nueve menos diez. Le llamé ladrón delante de todo el mundo, y lo volvería a hacer." },
+        { "id": "s2", "text": "Por qué se lo llamé es asunto mío.", "contradictedBy": "firma_falsa", "reply": "Vendía falsificaciones de mis primeros cuadros con certificados que yo nunca firmé. Iba a denunciarle, no a matarle. Muerto no me sirve de nada." }
+      ] },
+    { "id": "alex", "name": "Álex Roldán", "role": "Coleccionista", "age": 60,
+      "bust": { "skin": "#f0d0b8", "hair": "#9a8a70", "style": "raya", "coat": "#2c3a4c", "collar": "corbata", "age": 60 },
+      "bio": "Coleccionista y cliente habitual de la galería. Estaba con Gonzalo en el almacén cuando murió.",
+      "alibi": "Bajó al almacén con Gonzalo a las 21:44 y salió a pedir ayuda.",
+      "statements": [
+        { "id": "s1", "text": "Gonzalo me llevó al almacén para enseñarme una pieza. Empezó a toser, se pinchó con su autoinyector y no le hizo nada. Salí corriendo a pedir ayuda y la puerta se cerró detrás de mí." },
+        { "id": "s2", "text": "Soy un cliente satisfecho de la galería desde hace años.", "contradictedBy": "firma_falsa", "reply": "Le compré un Marín falso por sesenta mil euros. Esta noche venía a exigirle que me devolviera el dinero. Por eso estaba con él en el almacén." }
+      ] },
+    { "id": "lucia", "name": "Lucía Ferrer", "role": "Chef del catering", "age": 38,
+      "bust": { "skin": "#c99572", "hair": "#2a170e", "style": "mono", "coat": "#f2f0ea", "collar": "bata", "age": 38 },
+      "bio": "Dueña de Catering Ferrer. Lleva tres años sirviendo las inauguraciones de Ítaca.",
+      "alibi": "En la barra y en la cocina toda la noche.",
+      "statements": [
+        { "id": "s1", "text": "Todos mis platos llevan los alérgenos etiquetados. Gonzalo lo sabía y nunca probaba nada en las inauguraciones." },
+        { "id": "s2", "text": "El satay solo se sirvió en la mesa del fondo, lejos de la zona VIP. Lo puse así a propósito." }
+      ] },
+    { "id": "bruno", "name": "Bruno Vidal", "role": "Registrador de la galería", "age": 27,
+      "bust": { "skin": "#e8c1a0", "hair": "#6e4b2d", "style": "corto", "beard": "barba", "glasses": true, "coat": "#222b33", "collar": "cuello", "age": 27 },
+      "bio": "Se ocupa del inventario, el almacén y las cámaras. Lleva dos años en la galería.",
+      "alibi": "Dice que estuvo toda la noche en el cuarto de seguridad.",
+      "statements": [
+        { "id": "s1", "text": "Estuve toda la noche en el cuarto de seguridad, vigilando las cámaras.", "contradictedBy": "log_cctv", "reply": "Borré siete minutos, sí. Saqué una pieza pequeña del almacén, el Pájaro nº 3: tenía un comprador. Fue una estupidez, pero yo no maté a nadie.", "unlocks": ["s2"] },
+        { "id": "s2", "hidden": true, "text": "Hay algo más. A las nueve y trece vi por la cámara a Irene entrando en el pasillo de dirección. No le di importancia." }
+      ] }
+  ],
+  "deductions": [
+    { "id": "d_cambio", "requires": ["trainer", "autoinyector_real"], "title": "Alguien cambió el autoinyector", "text": "Gonzalo se pinchó con un dispositivo de entrenamiento. El suyo, el de verdad, acabó en el aseo del personal." },
+    { "id": "d_botella", "requires": ["positivo_mezcal", "nota_camarero", "canapes"], "title": "El cacahuete estaba en su botella", "text": "Gonzalo no comió nada. Solo bebió su mezcal, y la botella tiene cacahuete." },
+    { "id": "d_mentira", "requires": ["registro_tarjetas", "story_2120", "hora_discurso"], "title": "Irene mintió sobre el despacho", "text": "Su tarjeta abrió el despacho a las 21:13, la story la sitúa en el pasillo a las 21:20 y el discurso no empezó hasta las 21:22." },
+    { "id": "d_trainer", "requires": ["foto_hijo", "circular_colegio"], "title": "Irene tenía un dispositivo de entrenamiento", "text": "Su hijo es alérgico y el colegio repartió dispositivos de entrenamiento a las familias." },
+    { "id": "d_movil", "requires": ["correo_disolucion", "poliza_seguro", "extractos"], "title": "Un móvil de 1,2 millones", "text": "Arruinada y a punto de quedarse fuera de la galería, la muerte de Gonzalo antes del lunes le daba la sociedad y el seguro." },
+    { "id": "d_bruno", "requires": ["log_cctv", "inventario"], "title": "El borrado tapaba un robo", "text": "Bruno borró siete minutos de cámara para sacar el Pájaro nº 3 del almacén, no para ocultar un asesinato." }
+  ],
+  "timeline": {
+    "events": [
+      { "id": "t1", "time": "20:50", "text": "Teo discute a gritos con Gonzalo en la sala." },
+      { "id": "t2", "time": "21:04", "text": "Gonzalo abre el despacho con su tarjeta." },
+      { "id": "t3", "time": "21:13", "text": "La tarjeta de Irene abre el despacho." },
+      { "id": "t4", "time": "21:22", "text": "Irene empieza su discurso." },
+      { "id": "t5", "time": "21:41", "text": "Gonzalo vuelve al despacho y se sirve su mezcal." },
+      { "id": "t6", "time": "21:44", "text": "Gonzalo y Álex entran en el almacén." },
+      { "id": "t7", "time": "21:52", "text": "Salta la alarma del almacén." }
+    ],
+    "deduction": { "title": "Nueve minutos antes del atril", "text": "Irene entró en el despacho nueve minutos antes de su discurso y luego se puso delante de cien testigos. Cuando Gonzalo bebió, a las 21:41, ella no estaba cerca de él." }
+  },
+  "accusation": {
+    "methods": [
+      { "id": "m1", "text": "Una reacción accidental a los canapés de satay del catering." },
+      { "id": "m2", "text": "Le inyectaron una sobredosis de adrenalina con su propio autoinyector." },
+      { "id": "m3", "text": "Echó cacahuete en su botella de mezcal y cambió su autoinyector por un dispositivo de entrenamiento.", "requires": "d_cambio" },
+      { "id": "m4", "text": "Lo dejó encerrado en el almacén climatizado hasta que se asfixió." }
+    ],
+    "motives": [
+      { "id": "mo1", "text": "Vengarse por las falsificaciones de sus cuadros." },
+      { "id": "mo2", "text": "Recuperar los sesenta mil euros de un cuadro falso." },
+      { "id": "mo3", "text": "Evitar la disolución de la sociedad y cobrar el seguro de persona clave.", "requires": "d_movil" },
+      { "id": "mo4", "text": "Tapar el robo de una pieza del almacén." }
+    ]
+  },
+  "solution": {
+    "culprit": "irene", "method": "m3", "motive": "mo3",
+    "story": [
+      "Irene Salvat estaba arruinada y Gonzalo iba a disolver la sociedad el lunes, dejándola fuera con su parte a valor contable. Si Gonzalo moría antes del notario, ella se quedaba con la galería y con 1,2 millones del seguro de persona clave.",
+      "A las 21:13, nueve minutos antes de su discurso, entró con su tarjeta en el despacho. Echó cacahuete molido en la botella de mezcal que solo bebía Gonzalo y cambió el autoinyector de su chaqueta por el dispositivo de entrenamiento que el colegio le había dado para su hijo.",
+      "Luego subió al atril delante de cien testigos. A las 21:41 Gonzalo se sirvió su mezcal y bajó al almacén con Álex Roldán. Cuando empezó a ahogarse, se pinchó con un autoinyector sin aguja ni adrenalina.",
+      "Irene tiró el autoinyector auténtico en el aseo del personal. No previó que el sistema de tarjetas apunta cada puerta, ni que los invitados lo graban todo con el móvil."
+    ]
+  },
+  "hints": [
+    "Gonzalo usó su autoinyector y no le hizo nada. Míralo con la lupa en el almacén y busca en el aseo del personal.",
+    "El alérgeno no estaba en la comida. Pasa el test a la botella de mezcal del despacho y mira en el cuarto de seguridad quién entró allí con su tarjeta.",
+    "Irene preparó la botella a las 21:13, nueve minutos antes del discurso, y cambió el autoinyector por el dispositivo de entrenamiento de su hijo. El correo, el seguro y la carta del banco explican por qué."
+  ]
+}
